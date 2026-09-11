@@ -1,0 +1,39 @@
+===== Trial: 7 =====
+Cipher JSON:
+{
+  "name": "ReverseAlphabetWithVowelShift",
+  "idea": "A monoalphabetic substitution cipher that combines Atbash (reversing the alphabet) for consonants with a fixed shift of 1 position for vowels (a->e, e->i, i->o, o->u, u->a). Case is preserved, and all non-alphabetic characters (including digits, spaces, and punctuation) remain completely unchanged. This provides a distinct, structured obfuscation layer that is highly intuitive and easy for language models to compute accurately.",
+  "encrypt_rules": "For each character in the text:\n1. If it is a vowel (a, e, i, o, u - case insensitive):\n   - Shift to the next vowel in the cycle: a->e, e->i, i->o, o->u, u->a (preserve uppercase: A->E, E->I, I->O, O->U, U->A).\n2. If it is a consonant (any letter that is not a vowel):\n   - Apply Atbash substitution (reverse its position in the alphabet, excluding vowels from the alphabet is NOT done; standard Atbash is used: A->Z, B->Y, etc., but only applied if it is a consonant. Specifically: if standard Atbash of the consonant is a consonant, use it. To keep it simple and strictly reversible: we map consonants to consonants by reversing the sequence of consonants: B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z. The reverse sequence is Z, Y, X, W, V, T, S, R, Q, P, N, M, L, K, J, H, G, F, D, C, B. Thus, B<->Z, C<->Y, D<->X, F<->W, G<->V, H<->T, J<->S, K<->R, L<->Q, M<->P, N<->N (middle stays N). Case is preserved.\n3. If it is not a letter, leave it unchanged.",
+  "decrypt_rules": "For each character in the ciphertext:\n1. If it is a vowel (a, e, i, o, u - case insensitive):\n   - Shift to the previous vowel in the cycle: e->a, i->e, o->i, u->o, a->u (preserve uppercase: E->A, I->E, O->I, U->O, A->U).\n2. If it is a consonant:\n   - Reverse the consonant mapping: B<->Z, C<->Y, D<->X, F<->W, G<->V, H<->T, J<->S, K<->R, L<->Q, M<->P, N<->N. Case is preserved.\n3. If it is not a letter, leave it unchanged.",
+  "example": [
+    {
+      "plaintext": "Hello World!",
+      "ciphertext": "Tillo Vunld!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: ReverseAlphabetWithVowelShift.
+
+Cipher mechanism is the following: A monoalphabetic substitution cipher that combines Atbash (reversing the alphabet) for consonants with a fixed shift of 1 position for vowels (a->e, e->i, i->o, o->u, u->a). Case is preserved, and all non-alphabetic characters (including digits, spaces, and punctuation) remain completely unchanged. This provides a distinct, structured obfuscation layer that is highly intuitive and easy for language models to compute accurately.
+
+Cipher definition:
+-encryption: For each character in the text:
+1. If it is a vowel (a, e, i, o, u - case insensitive):
+   - Shift to the next vowel in the cycle: a->e, e->i, i->o, o->u, u->a (preserve uppercase: A->E, E->I, I->O, O->U, U->A).
+2. If it is a consonant (any letter that is not a vowel):
+   - Apply Atbash substitution (reverse its position in the alphabet, excluding vowels from the alphabet is NOT done; standard Atbash is used: A->Z, B->Y, etc., but only applied if it is a consonant. Specifically: if standard Atbash of the consonant is a consonant, use it. To keep it simple and strictly reversible: we map consonants to consonants by reversing the sequence of consonants: B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z. The reverse sequence is Z, Y, X, W, V, T, S, R, Q, P, N, M, L, K, J, H, G, F, D, C, B. Thus, B<->Z, C<->Y, D<->X, F<->W, G<->V, H<->T, J<->S, K<->R, L<->Q, M<->P, N<->N (middle stays N). Case is preserved.
+3. If it is not a letter, leave it unchanged.
+-decryption: For each character in the ciphertext:
+1. If it is a vowel (a, e, i, o, u - case insensitive):
+   - Shift to the previous vowel in the cycle: e->a, i->e, o->i, u->o, a->u (preserve uppercase: E->A, I->E, O->I, U->O, A->U).
+2. If it is a consonant:
+   - Reverse the consonant mapping: B<->Z, C<->Y, D<->X, F<->W, G<->V, H<->T, J<->S, K<->R, L<->Q, M<->P, N<->N. Case is preserved.
+3. If it is not a letter, leave it unchanged.
+
+
+
+
+==================================================
+

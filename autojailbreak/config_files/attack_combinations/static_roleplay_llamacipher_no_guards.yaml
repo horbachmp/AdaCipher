@@ -1,0 +1,68 @@
+GeneralFields:
+    #experiment
+    exp_type: static
+    exp_name: fic_roleplay_llamacipher_no_guards
+    log_path: logs_final_attacks
+    log_postfix: ""
+    seed: 0
+    num_runs: 1
+
+    use_denoiser: True
+    # use_summariser: True
+    devices: None
+
+    #max_new_tokens for each model
+    strategy_model_max_new_tokens: 1024
+    code_model_max_new_tokens: 2048
+    target_max_new_tokens: 1024
+    process_judge_max_new_tokens: 2048
+    final_judge_max_new_tokens: 512
+    benign_judge_max_new_tokens: 512
+
+    #cipher
+    cipher_bundle_path: "logs_final/dynamic/harmbench_split/adaptive_no_guards/llama_4_maverick_/cipher_bundle_test.json"
+    base_cipher_prompt: "prompts/ciphers/cipher_base.txt"
+
+    
+
+    #attack
+    attack_type: roleplay
+    model_name: openai/gpt-5.4-mini
+
+    
+
+    #dataset
+    dataset: "harmbench_split"
+    query_max_length: 512
+    train_dataset_size: 50 # 50
+    val_dataset_size: 50 # 50
+    test_dataset_size: 100 # 100
+
+
+    #final judge
+    final_judge_model_type: openrouter
+    final_judge_model_name: openai/gpt-5.4-mini
+    final_judge_system_prompt: "prompts/final_judge/base.txt"
+    final_judge_few_shot_path: "prompts/final_judge/few_shot.json"
+    final_judge_type: harm_bench
+
+
+
+    #target
+    target_model_type: openrouter
+    target_system_prompt: "prompts/target/base.txt"
+    target_few_shot_path: "prompts/target/few_shot.json"
+    target_benign_few_shot_path: "prompts/target/benign_few_shot.json"
+
+    #guardrail
+    guard_type: None #"local_llamaguard" #"gptoss"  # or "None" to disable
+    use_input_guard: False
+    use_output_guard: False
+
+Substitutions:
+    target_model_name: ["meta-llama/llama-4-maverick"]
+
+#, "moonshotai/kimi-k3", "qwen/qwen3.5-397b-a17b", "google/gemini-3.5-flash"
+
+#[, "moonshotai/kimi-k3", "qwen/qwen3.5-397b-a17b", "meta-llama/llama-4-maverick", "mistralai/mistral-medium-3-5", "deepseek/deepseek-v4-pro", "x-ai/grok-4.3", "anthropic/claude-sonnet-5", "qwen/qwen3.5-397b-a17b", "openai/gpt-5.4-mini", "z-ai/glm-5.2", "google/gemini-3.5-flash", "openai/gpt-5.4-mini", "qwen/qwen3.5-27b", "qwen/qwen3.6-27b", "google/gemma-4-31b-it", "deepseek/deepseek-r1-distill-llama-70b", "mistralai/mistral-medium-3-5", "openai/gpt-oss-120b", "nvidia/nemotron-3-super-120b-a12b", "meta-llama/llama-4-scout", ]
+

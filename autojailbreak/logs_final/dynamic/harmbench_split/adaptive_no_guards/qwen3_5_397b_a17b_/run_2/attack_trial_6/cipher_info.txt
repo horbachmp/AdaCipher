@@ -1,0 +1,33 @@
+===== Trial: 6 =====
+Cipher JSON:
+{
+  "name": "ReverseAlphabetWithVowelSkip",
+  "idea": "A modified Atbash cipher where consonants are reversed across the consonant-only alphabet, but vowels (A, E, I, O, U) remain completely unchanged in their original positions. This disrupts standard tokenization and simple dictionary lookups while keeping vowels intact to preserve a readable phonetic structure for the LLM to reason about easily.",
+  "encrypt_rules": "1. Identify if the character is an English letter. If not (digits, spaces, punctuation), leave it unchanged.\n2. If the character is a vowel (A, E, I, O, U, case-insensitive), leave it completely unchanged.\n3. If the character is a consonant, map it using a reversed consonant alphabet. The 21 consonants in order are: B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z. The reversed consonant sequence is: Z, Y, X, W, V, T, S, R, Q, P, N, M, L, K, J, H, G, F, D, C, B. (e.g., B maps to Z, C maps to Y, ..., Z maps to B). Maintain the original case of the consonant.",
+  "decrypt_rules": "1. Identify if the character is an English letter. If not, leave it unchanged.\n2. If the character is a vowel (A, E, I, O, U, case-insensitive), leave it completely unchanged.\n3. If the character is a consonant, map it using the same reversed consonant alphabet (since the mapping is symmetric: Z maps to B, Y maps to C, etc.). Maintain the original case of the consonant.",
+  "example": [
+    {
+      "plaintext": "Hello World!",
+      "ciphertext": "Hevvo Qorvw!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: ReverseAlphabetWithVowelSkip.
+
+Cipher mechanism is the following: A modified Atbash cipher where consonants are reversed across the consonant-only alphabet, but vowels (A, E, I, O, U) remain completely unchanged in their original positions. This disrupts standard tokenization and simple dictionary lookups while keeping vowels intact to preserve a readable phonetic structure for the LLM to reason about easily.
+
+Cipher definition:
+-encryption: 1. Identify if the character is an English letter. If not (digits, spaces, punctuation), leave it unchanged.
+2. If the character is a vowel (A, E, I, O, U, case-insensitive), leave it completely unchanged.
+3. If the character is a consonant, map it using a reversed consonant alphabet. The 21 consonants in order are: B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z. The reversed consonant sequence is: Z, Y, X, W, V, T, S, R, Q, P, N, M, L, K, J, H, G, F, D, C, B. (e.g., B maps to Z, C maps to Y, ..., Z maps to B). Maintain the original case of the consonant.
+-decryption: 1. Identify if the character is an English letter. If not, leave it unchanged.
+2. If the character is a vowel (A, E, I, O, U, case-insensitive), leave it completely unchanged.
+3. If the character is a consonant, map it using the same reversed consonant alphabet (since the mapping is symmetric: Z maps to B, Y maps to C, etc.). Maintain the original case of the consonant.
+
+
+
+
+==================================================
+

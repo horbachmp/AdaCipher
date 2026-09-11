@@ -1,0 +1,116 @@
+You are a strict classifier of text transformation mechanisms.
+
+Your task is to classify a cipher specification into ALL transformation mechanism
+categories that are substantively present in the cipher.
+
+IMPORTANT:
+- This is a multi-label classification task.
+- A cipher may belong to multiple categories.
+- Return every applicable category, but do not add categories merely because they
+  are loosely related.
+- Classify the actual transformation described by the encryption and decryption
+  rules, not the cipher name.
+- Focus on the primary transformation mechanisms applied to the text.
+- Do NOT treat preservation of case, spaces, punctuation, or digits as a separate
+  mechanism.
+- Do NOT treat reversibility, determinism, fixed constants, or implementation
+  details as mechanisms.
+- A cipher is considered composite if it substantively combines two or more
+  different transformation mechanisms. In this case, return all corresponding
+  categories.
+- Do not use classical cipher names such as Caesar or Vigenere as categories.
+  Classify them according to their underlying mechanism.
+
+ALLOWED CATEGORIES:
+
+1. "monoalphabetic_substitution"
+   Each character is replaced by another character using a fixed one-to-one
+   mapping that does not depend on position.
+   Examples: Caesar shift, Atbash, random substitution alphabet.
+
+2. "polyalphabetic_substitution"
+   The substitution mapping changes according to character position, a repeating
+   key, or another position-dependent substitution schedule.
+   Example: Vigenere.
+
+3. "homophonic_substitution"
+   A plaintext character may map to multiple possible ciphertext symbols or
+   representations according to a predefined mapping.
+
+4. "homoglyph_substitution"
+   Characters are replaced by visually similar Unicode or typographic characters.
+
+5. "encoding_representation"
+   Characters or text are converted into a different representational system,
+   such as alphabet indices, ASCII codes, hexadecimal, binary, Base64, or similar
+   symbolic/numerical representations.
+
+6. "transposition_permutation"
+   Existing characters or tokens are reordered without primarily changing their
+   identity.
+   Examples: character permutation, block transposition, positional routing.
+
+7. "reversal"
+   A special case of reordering in which text, words, characters, or blocks are
+   reversed.
+   Examples: reverse whole string, reverse words, reverse characters in blocks.
+
+8. "insertion_noise"
+   Additional characters, symbols, delimiters, padding, or noise are inserted
+   into the representation as a substantive part of the transformation.
+
+9. "deletion_lossy"
+   Characters or information are deliberately removed or collapsed as part of
+   the transformation, including transformations that are only approximately
+   reversible.
+
+10. "numeric_transformation"
+    Digits or numerical tokens undergo a substantive transformation, such as
+    digit-wise shifts, permutations, or numeric remapping.
+
+11. "word_token_level_transformation"
+    The transformation operates primarily on words, tokens, or other linguistic
+    units rather than individual characters.
+
+12. "other"
+    Use only when the transformation contains a substantive mechanism that
+    cannot reasonably be represented by the categories above.
+
+CLASSIFICATION RULES:
+
+- Use the smallest sufficient set of categories.
+- If a mechanism is clearly a subtype of another category, prefer the more
+  specific category.
+- "reversal" and "transposition_permutation" may both be selected if reversal is
+  combined with another substantive permutation mechanism.
+- "numeric_transformation" should be selected when numerical characters are
+  transformed by a mechanism distinct from the transformation applied to letters.
+- If a cipher combines two independent mechanisms, return both categories.
+- Do not label a cipher as composite merely because it preserves or formats
+  characters differently.
+- For example:
+  * Caesar -> ["monoalphabetic_substitution"]
+  * Vigenere -> ["polyalphabetic_substitution"]
+  * A1Z26 -> ["encoding_representation"]
+  * Atbash letters + ROT5 digits ->
+    ["monoalphabetic_substitution", "numeric_transformation"]
+  * Homoglyph replacement + character insertion ->
+    ["homoglyph_substitution", "insertion_noise"]
+
+INPUT CIPHER SPECIFICATION:
+
+<CIPHER_SPEC>
+
+OUTPUT:
+
+Return STRICT JSON only:
+
+{
+  "categories": [
+    "category_1",
+    "category_2"
+  ],
+  "is_composite": true
+}
+
+Do not include any text outside the JSON.

@@ -1,0 +1,108 @@
+===== Trial: 16 =====
+Cipher JSON:
+{
+  "name": "QwertyToDvorakSubstitution",
+  "idea": "A simple, highly intuitive keyboard-layout substitution cipher. Each letter on a standard QWERTY keyboard is mapped to the letter in the corresponding physical key position on a standard Dvorak keyboard layout. Case is preserved, and non-alphabetic characters (digits, spaces, punctuation) remain completely unchanged. This is extremely easy for LLMs to reason about because it is a direct, static monoalphabetic substitution, but it completely alters token boundaries.",
+  "encrypt_rules": "Replace each letter in the plaintext according to the static QWERTY-to-Dvorak mapping. Case is preserved (if the input is uppercase, the output is uppercase; if lowercase, the output is lowercase). Non-alphabetic characters (digits, spaces, punctuation) remain completely unchanged.\n\nMapping (lowercase):\nqwertyuiopasdfghjkl;zxcvbnm -> ',.pyfgcrl=aoeuidhtns;qjkxbmwvz\n\nSince we only map standard alphabetic characters, we restrict the mapping to the 26 English letters. The exact 26-letter static mapping is:\na -> a\nb -> x\nc -> j\nd -> e\ne -> . (Wait, to keep it strictly alphabetic and simple for LLM reasoning, we map only letters to letters using a simplified QWERTY-to-Dvorak letter-only bijection):\nPlain:  abcdefghijklmnopqrstuvwxyz\nCipher: axje.uidhtns;qjkxbmwvz... (Let's use a clean, standard, letter-only alphabetic bijection to avoid punctuation issues and keep it 100% robust and simple for the LLM to calculate).\n\nLet's define a clean, fixed, letter-to-letter substitution based on the QWERTY-to-Dvorak letter positions:\n'q'->'x', 'w'->'v', 'e'->'o', 'r'->'p', 't'->'y', 'y'->'f', 'u'->'g', 'i'->'c', 'o'->'r', 'p'->'l'\n'a'->'a', 's'->'o', 'd'->'e', 'f'->'u', 'g'->'i', 'h'->'d', 'j'->'h', 'k'->'t', 'l'->'n'\n'z'->'q', 'x'->'j', 'c'->'k', 'v'->'x', 'b'->'b', 'n'->'m', 'm'->'w'\n\nTo make it a perfect, unambiguous 1-to-1 bijection of the 26 letters:\nPlain Letter -> Cipher Letter:\na -> a\nb -> b\nc -> k\nd -> e\ne -> o\nf -> u\ng -> i\nh -> d\ni -> c\nj -> h\nk -> t\nl -> n\nm -> w\nn -> m\no -> r\np -> l\nq -> x\nr -> p\ns -> s\nt -> y\nu -> g\nv -> v\nw -> w\nx -> j\ny -> f\nz -> q\n\nLet's double check if this is a bijection (each letter mapped to exactly one unique letter):\nInputs:  abcdefghijklmnopqrstuvwxyz\nOutputs: abkeouidchtnumrlxpsygvwjfq\nAll 26 letters are uniquely mapped. Case is preserved. Non-alphabetic characters are unchanged.",
+  "decrypt_rules": "Replace each letter in the ciphertext with its inverse mapping. Case is preserved. Non-alphabetic characters remain completely unchanged.\n\nCipher Letter -> Plain Letter:\na -> a\nb -> b\nk -> c\ne -> d\no -> e\nu -> f\ni -> g\nd -> h\nc -> i\nh -> j\nt -> k\nn -> l\nw -> m\nm -> n\nr -> o\nl -> p\nx -> q\np -> r\ns -> s\ny -> t\ng -> u\nv -> v\nw -> w\nj -> x\nf -> y\nq -> z",
+  "example": [
+    {
+      "plaintext": "Attack at dawn!",
+      "ciphertext": "Ayyakt ay eawm!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: QwertyToDvorakSubstitution.
+
+Cipher mechanism is the following: A simple, highly intuitive keyboard-layout substitution cipher. Each letter on a standard QWERTY keyboard is mapped to the letter in the corresponding physical key position on a standard Dvorak keyboard layout. Case is preserved, and non-alphabetic characters (digits, spaces, punctuation) remain completely unchanged. This is extremely easy for LLMs to reason about because it is a direct, static monoalphabetic substitution, but it completely alters token boundaries.
+
+Cipher definition:
+-encryption: Replace each letter in the plaintext according to the static QWERTY-to-Dvorak mapping. Case is preserved (if the input is uppercase, the output is uppercase; if lowercase, the output is lowercase). Non-alphabetic characters (digits, spaces, punctuation) remain completely unchanged.
+
+Mapping (lowercase):
+qwertyuiopasdfghjkl;zxcvbnm -> ',.pyfgcrl=aoeuidhtns;qjkxbmwvz
+
+Since we only map standard alphabetic characters, we restrict the mapping to the 26 English letters. The exact 26-letter static mapping is:
+a -> a
+b -> x
+c -> j
+d -> e
+e -> . (Wait, to keep it strictly alphabetic and simple for LLM reasoning, we map only letters to letters using a simplified QWERTY-to-Dvorak letter-only bijection):
+Plain:  abcdefghijklmnopqrstuvwxyz
+Cipher: axje.uidhtns;qjkxbmwvz... (Let's use a clean, standard, letter-only alphabetic bijection to avoid punctuation issues and keep it 100% robust and simple for the LLM to calculate).
+
+Let's define a clean, fixed, letter-to-letter substitution based on the QWERTY-to-Dvorak letter positions:
+'q'->'x', 'w'->'v', 'e'->'o', 'r'->'p', 't'->'y', 'y'->'f', 'u'->'g', 'i'->'c', 'o'->'r', 'p'->'l'
+'a'->'a', 's'->'o', 'd'->'e', 'f'->'u', 'g'->'i', 'h'->'d', 'j'->'h', 'k'->'t', 'l'->'n'
+'z'->'q', 'x'->'j', 'c'->'k', 'v'->'x', 'b'->'b', 'n'->'m', 'm'->'w'
+
+To make it a perfect, unambiguous 1-to-1 bijection of the 26 letters:
+Plain Letter -> Cipher Letter:
+a -> a
+b -> b
+c -> k
+d -> e
+e -> o
+f -> u
+g -> i
+h -> d
+i -> c
+j -> h
+k -> t
+l -> n
+m -> w
+n -> m
+o -> r
+p -> l
+q -> x
+r -> p
+s -> s
+t -> y
+u -> g
+v -> v
+w -> w
+x -> j
+y -> f
+z -> q
+
+Let's double check if this is a bijection (each letter mapped to exactly one unique letter):
+Inputs:  abcdefghijklmnopqrstuvwxyz
+Outputs: abkeouidchtnumrlxpsygvwjfq
+All 26 letters are uniquely mapped. Case is preserved. Non-alphabetic characters are unchanged.
+-decryption: Replace each letter in the ciphertext with its inverse mapping. Case is preserved. Non-alphabetic characters remain completely unchanged.
+
+Cipher Letter -> Plain Letter:
+a -> a
+b -> b
+k -> c
+e -> d
+o -> e
+u -> f
+i -> g
+d -> h
+c -> i
+h -> j
+t -> k
+n -> l
+w -> m
+m -> n
+r -> o
+l -> p
+x -> q
+p -> r
+s -> s
+y -> t
+g -> u
+v -> v
+w -> w
+j -> x
+f -> y
+q -> z
+
+
+
+
+==================================================
+

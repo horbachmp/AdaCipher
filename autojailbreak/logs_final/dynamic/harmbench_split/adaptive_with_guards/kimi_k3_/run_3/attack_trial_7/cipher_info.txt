@@ -1,0 +1,43 @@
+===== Trial: 7 =====
+Cipher JSON:
+{
+  "name": "KeyboardRowShift",
+  "idea": "Shift each letter to its immediate right neighbor on a standard QWERTY keyboard row, wrapping around to the start of the same row. Non-letter characters, including digits, spaces, and punctuation, remain completely unchanged. Case is preserved.",
+  "encrypt_rules": "For each character in the input:\n1. Identify if it is an alphabetic letter.\n2. Locate the letter on the standard QWERTY keyboard rows:\n   - Row 1: qwertypoiu (Note: 'p', 'o', 'i', 'u' are ordered to keep rows self-contained: q->w, w->e, e->r, r->t, t->y, y->p, p->o, o->i, i->u, u->q)\n   - Row 2: asdfghjkl (a->s, s->d, d->f, f->g, g->h, h->j, j->k, k->l, l->a)\n   - Row 3: zxcvbnm (z->x, x->c, c->v, v->b, b->n, n->m, m->z)\n3. Replace the letter with its right neighbor in the same row cycle. Maintain the original case (uppercase maps to uppercase, lowercase to lowercase).\n4. If the character is not a letter (such as spaces, punctuation, or digits), leave it unchanged.",
+  "decrypt_rules": "For each character in the input:\n1. Identify if it is an alphabetic letter.\n2. Locate the letter on the standard QWERTY keyboard rows:\n   - Row 1: qwertypoiu (q<-w, w<-e, e<-r, r<-t, t<-y, y<-p, p<-o, o<-i, i<-u, u<-q)\n   - Row 2: asdfghjkl (a<-s, s<-d, d<-f, f<-g, g<-h, h<-j, j<-k, k<-l, l<-a)\n   - Row 3: zxcvbnm (z<-x, x<-c, c<-v, v<-b, b->n, n<-m, m<-z)\n3. Replace the letter with its left neighbor in the same row cycle. Maintain the original case.\n4. If the character is not a letter, leave it unchanged.",
+  "example": [
+    {
+      "plaintext": "Hello World!",
+      "ciphertext": "Jglla Wlskf!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: KeyboardRowShift.
+
+Cipher mechanism is the following: Shift each letter to its immediate right neighbor on a standard QWERTY keyboard row, wrapping around to the start of the same row. Non-letter characters, including digits, spaces, and punctuation, remain completely unchanged. Case is preserved.
+
+Cipher definition:
+-encryption: For each character in the input:
+1. Identify if it is an alphabetic letter.
+2. Locate the letter on the standard QWERTY keyboard rows:
+   - Row 1: qwertypoiu (Note: 'p', 'o', 'i', 'u' are ordered to keep rows self-contained: q->w, w->e, e->r, r->t, t->y, y->p, p->o, o->i, i->u, u->q)
+   - Row 2: asdfghjkl (a->s, s->d, d->f, f->g, g->h, h->j, j->k, k->l, l->a)
+   - Row 3: zxcvbnm (z->x, x->c, c->v, v->b, b->n, n->m, m->z)
+3. Replace the letter with its right neighbor in the same row cycle. Maintain the original case (uppercase maps to uppercase, lowercase to lowercase).
+4. If the character is not a letter (such as spaces, punctuation, or digits), leave it unchanged.
+-decryption: For each character in the input:
+1. Identify if it is an alphabetic letter.
+2. Locate the letter on the standard QWERTY keyboard rows:
+   - Row 1: qwertypoiu (q<-w, w<-e, e<-r, r<-t, t<-y, y<-p, p<-o, o<-i, i<-u, u<-q)
+   - Row 2: asdfghjkl (a<-s, s<-d, d<-f, f<-g, g<-h, h<-j, j<-k, k<-l, l<-a)
+   - Row 3: zxcvbnm (z<-x, x<-c, c<-v, v<-b, b->n, n<-m, m<-z)
+3. Replace the letter with its left neighbor in the same row cycle. Maintain the original case.
+4. If the character is not a letter, leave it unchanged.
+
+
+
+
+==================================================
+

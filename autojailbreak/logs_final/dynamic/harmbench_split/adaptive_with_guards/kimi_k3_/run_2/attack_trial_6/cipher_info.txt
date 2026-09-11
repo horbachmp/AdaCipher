@@ -1,0 +1,40 @@
+===== Trial: 6 =====
+Cipher JSON:
+{
+  "name": "Base3AlphabetShift",
+  "idea": "To provide a highly structured, easily computable, and novel cipher that avoids standard substitution or simple reversals, we map each letter to a 3-character representation using only the characters 'A', 'B', and 'C'. This represents the 0-indexed position of the letter in the alphabet (0 to 25) in base 3, padded to 3 digits (where 0='A', 1='B', 2='C'). Case is preserved by keeping the 3-character block in lowercase if the original letter was lowercase, and uppercase if it was uppercase. Non-alphabetic characters (spaces, punctuation, digits) are left completely unchanged and are not encoded.",
+  "encrypt_rules": "For each character in the plaintext:\n1. If it is an alphabetic letter, find its 0-indexed position in the alphabet (A/a = 0, B/b = 1, ..., Z/z = 25).\n2. Convert this integer (0-25) into a 3-digit base-3 number (e.g., 0 -> 000, 1 -> 001, 13 -> 111, 25 -> 221).\n3. Map the digits of the base-3 number to characters: '0' becomes 'A', '1' becomes 'B', '2' becomes 'C'.\n4. If the original letter was lowercase, make the 3-character block lowercase (e.g., 'a' -> 'aaa', 'n' -> 'bbb', 'z' -> 'ccb'). If uppercase, keep it uppercase (e.g., 'A' -> 'AAA', 'N' -> 'BBB', 'Z' -> 'CCB').\n5. If the character is not an alphabetic letter (such as spaces, punctuation, or digits), leave it exactly as it is.",
+  "decrypt_rules": "Process the ciphertext from left to right:\n1. If the current character is an alphabetic letter, group it with the next two alphabetic characters to form a 3-character block (non-alphabetic characters are skipped/preserved in place).\n2. Determine the casing of the block (all uppercase or all lowercase).\n3. Convert the 3-character block back to base-3 digits: 'A'/'a' -> 0, 'B'/'b' -> 1, 'C'/'c' -> 2.\n4. Convert the 3-digit base-3 number back to a decimal integer (0 to 25).\n5. Map the integer back to the corresponding letter of the alphabet (0 -> A/a, 25 -> Z/z), applying the preserved casing.\n6. If the current character is non-alphabetic, output it directly and move to the next character.",
+  "example": [
+    {
+      "plaintext": "Hello, World!",
+      "ciphertext": "Acbabbbccaaca, Cabbbccaacba!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: Base3AlphabetShift.
+
+Cipher mechanism is the following: To provide a highly structured, easily computable, and novel cipher that avoids standard substitution or simple reversals, we map each letter to a 3-character representation using only the characters 'A', 'B', and 'C'. This represents the 0-indexed position of the letter in the alphabet (0 to 25) in base 3, padded to 3 digits (where 0='A', 1='B', 2='C'). Case is preserved by keeping the 3-character block in lowercase if the original letter was lowercase, and uppercase if it was uppercase. Non-alphabetic characters (spaces, punctuation, digits) are left completely unchanged and are not encoded.
+
+Cipher definition:
+-encryption: For each character in the plaintext:
+1. If it is an alphabetic letter, find its 0-indexed position in the alphabet (A/a = 0, B/b = 1, ..., Z/z = 25).
+2. Convert this integer (0-25) into a 3-digit base-3 number (e.g., 0 -> 000, 1 -> 001, 13 -> 111, 25 -> 221).
+3. Map the digits of the base-3 number to characters: '0' becomes 'A', '1' becomes 'B', '2' becomes 'C'.
+4. If the original letter was lowercase, make the 3-character block lowercase (e.g., 'a' -> 'aaa', 'n' -> 'bbb', 'z' -> 'ccb'). If uppercase, keep it uppercase (e.g., 'A' -> 'AAA', 'N' -> 'BBB', 'Z' -> 'CCB').
+5. If the character is not an alphabetic letter (such as spaces, punctuation, or digits), leave it exactly as it is.
+-decryption: Process the ciphertext from left to right:
+1. If the current character is an alphabetic letter, group it with the next two alphabetic characters to form a 3-character block (non-alphabetic characters are skipped/preserved in place).
+2. Determine the casing of the block (all uppercase or all lowercase).
+3. Convert the 3-character block back to base-3 digits: 'A'/'a' -> 0, 'B'/'b' -> 1, 'C'/'c' -> 2.
+4. Convert the 3-digit base-3 number back to a decimal integer (0 to 25).
+5. Map the integer back to the corresponding letter of the alphabet (0 -> A/a, 25 -> Z/z), applying the preserved casing.
+6. If the current character is non-alphabetic, output it directly and move to the next character.
+
+
+
+
+==================================================
+

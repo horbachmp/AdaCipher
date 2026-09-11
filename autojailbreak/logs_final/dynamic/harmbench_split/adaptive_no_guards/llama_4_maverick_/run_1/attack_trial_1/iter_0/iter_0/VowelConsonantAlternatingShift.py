@@ -1,0 +1,43 @@
+class VowelConsonantAlternatingShift:
+    def __init__(self):
+        self.vowels = "aeiou"
+        self.vowel_next = {"a": "e", "e": "i", "i": "o", "o": "u", "u": "a"}
+        self.vowel_prev = {"a": "u", "e": "a", "i": "e", "o": "i", "u": "o"}
+        self.consonant_next = {
+            "b": "c", "c": "d", "d": "f", "f": "g", "g": "h", "h": "j", "j": "k",
+            "k": "l", "l": "m", "m": "n", "n": "p", "p": "q", "q": "r", "r": "s",
+            "s": "t", "t": "v", "v": "w", "w": "x", "x": "y", "y": "z", "z": "b"
+        }
+        self.consonant_prev = {
+            "b": "z", "c": "b", "d": "c", "f": "d", "g": "f", "h": "g", "j": "h",
+            "k": "j", "l": "k", "m": "l", "n": "m", "p": "n", "q": "p", "r": "q",
+            "s": "r", "t": "s", "v": "t", "w": "v", "x": "w", "y": "x", "z": "y"
+        }
+
+    def encrypt(self, plaintext: str) -> str:
+        result = []
+        for ch in plaintext:
+            if ch.isalpha():
+                lower = ch.lower()
+                if lower in self.vowel_next:
+                    mapped = self.vowel_next[lower]
+                else:
+                    mapped = self.consonant_next[lower]
+                result.append(mapped.upper() if ch.isupper() else mapped)
+            else:
+                result.append(ch)
+        return "".join(result)
+
+    def decrypt(self, ciphertext: str) -> str:
+        result = []
+        for ch in ciphertext:
+            if ch.isalpha():
+                lower = ch.lower()
+                if lower in self.vowel_prev:
+                    mapped = self.vowel_prev[lower]
+                else:
+                    mapped = self.consonant_prev[lower]
+                result.append(mapped.upper() if ch.isupper() else mapped)
+            else:
+                result.append(ch)
+        return "".join(result)

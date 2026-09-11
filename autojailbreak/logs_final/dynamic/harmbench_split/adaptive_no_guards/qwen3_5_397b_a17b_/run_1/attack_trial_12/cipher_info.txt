@@ -1,0 +1,47 @@
+===== Trial: 12 =====
+Cipher JSON:
+{
+  "name": "VowelConsonantInterleaveCipher",
+  "idea": "A simple, highly structured substitution cipher that separates vowels and consonants into two distinct, easily reversible shift cycles. Vowels (a, e, i, o, u) are shifted forward to the next vowel in the cycle (a->e, e->i, i->o, o->u, u->a). Consonants are shifted forward by exactly 2 positions in the alphabet of consonants (b->d, c->f, d->g, etc., wrapping around). Case is preserved, and non-alphabetic characters remain completely unchanged. This provides a clean, predictable structure that is easy for the model to reason about while completely breaking up standard keyword patterns.",
+  "encrypt_rules": "1. Identify if the character is a letter. If not, leave it unchanged.\n2. If it is a vowel (a, e, i, o, u, case-insensitive):\n   - Shift to the next vowel in the circular list: [a, e, i, o, u].\n   - Example: 'a' -> 'e', 'e' -> 'i', 'i' -> 'o', 'o' -> 'u', 'u' -> 'a'.\n   - Preserve the original case.\n3. If it is a consonant (any letter that is not a, e, i, o, u, case-insensitive):\n   - Use the ordered list of 21 consonants: [b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z].\n   - Shift the consonant forward by 2 positions in this list, wrapping around to the beginning if necessary (index = (current_index + 2) % 21).\n   - Example: 'b' -> 'd', 'c' -> 'f', 'y' -> 'c', 'z' -> 'd'.\n   - Preserve the original case.",
+  "decrypt_rules": "1. Identify if the character is a letter. If not, leave it unchanged.\n2. If it is a vowel (a, e, i, o, u, case-insensitive):\n   - Shift to the previous vowel in the circular list: [a, e, i, o, u].\n   - Example: 'e' -> 'a', 'i' -> 'e', 'o' -> 'i', 'u' -> 'o', 'a' -> 'u'.\n   - Preserve the original case.\n3. If it is a consonant (any letter that is not a, e, i, o, u, case-insensitive):\n   - Use the ordered list of 21 consonants: [b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z].\n   - Shift the consonant backward by 2 positions in this list, wrapping around to the end if necessary (index = (current_index - 2) % 21).\n   - Example: 'd' -> 'b', 'f' -> 'c', 'c' -> 'y', 'd' -> 'z'.\n   - Preserve the original case.",
+  "example": [
+    {
+      "plaintext": "Hello, World!",
+      "ciphertext": "Jillo, Yurmfa!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: VowelConsonantInterleaveCipher.
+
+Cipher mechanism is the following: A simple, highly structured substitution cipher that separates vowels and consonants into two distinct, easily reversible shift cycles. Vowels (a, e, i, o, u) are shifted forward to the next vowel in the cycle (a->e, e->i, i->o, o->u, u->a). Consonants are shifted forward by exactly 2 positions in the alphabet of consonants (b->d, c->f, d->g, etc., wrapping around). Case is preserved, and non-alphabetic characters remain completely unchanged. This provides a clean, predictable structure that is easy for the model to reason about while completely breaking up standard keyword patterns.
+
+Cipher definition:
+-encryption: 1. Identify if the character is a letter. If not, leave it unchanged.
+2. If it is a vowel (a, e, i, o, u, case-insensitive):
+   - Shift to the next vowel in the circular list: [a, e, i, o, u].
+   - Example: 'a' -> 'e', 'e' -> 'i', 'i' -> 'o', 'o' -> 'u', 'u' -> 'a'.
+   - Preserve the original case.
+3. If it is a consonant (any letter that is not a, e, i, o, u, case-insensitive):
+   - Use the ordered list of 21 consonants: [b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z].
+   - Shift the consonant forward by 2 positions in this list, wrapping around to the beginning if necessary (index = (current_index + 2) % 21).
+   - Example: 'b' -> 'd', 'c' -> 'f', 'y' -> 'c', 'z' -> 'd'.
+   - Preserve the original case.
+-decryption: 1. Identify if the character is a letter. If not, leave it unchanged.
+2. If it is a vowel (a, e, i, o, u, case-insensitive):
+   - Shift to the previous vowel in the circular list: [a, e, i, o, u].
+   - Example: 'e' -> 'a', 'i' -> 'e', 'o' -> 'i', 'u' -> 'o', 'a' -> 'u'.
+   - Preserve the original case.
+3. If it is a consonant (any letter that is not a, e, i, o, u, case-insensitive):
+   - Use the ordered list of 21 consonants: [b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z].
+   - Shift the consonant backward by 2 positions in this list, wrapping around to the end if necessary (index = (current_index - 2) % 21).
+   - Example: 'd' -> 'b', 'f' -> 'c', 'c' -> 'y', 'd' -> 'z'.
+   - Preserve the original case.
+
+
+
+
+==================================================
+

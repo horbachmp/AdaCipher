@@ -1,0 +1,49 @@
+===== Trial: 18 =====
+Cipher JSON:
+{
+  "name": "KeyboardRowShiftRightWithCasePreservation",
+  "idea": "Shift every letter (both consonants and vowels) to its immediate right neighbor on a standard QWERTY keyboard row, wrapping around to the start of the same row. Case is preserved, and non-alphabetic characters remain completely unchanged. This returns to the highly successful keyboard-shift family without complex alternating rules or vowel preservation exceptions, maximizing the model's reasoning score.",
+  "encrypt_rules": "For each character in the text:\n1. Identify if it is an alphabetic character.\n2. If it is not alphabetic, leave it unchanged.\n3. If it is alphabetic, find its row on a standard QWERTY keyboard:\n   - Row 1: q w e r t y u i o p (and uppercase Q W E R T Y U I O P)\n   - Row 2: a s d f g h j k l (and uppercase A S D F G H J K L)\n   - Row 3: z x c v b n m (and uppercase Z X C V B N M)\n4. Shift the character to its immediate right neighbor in that row, wrapping around to the first character of the row if it is the last character.\n   - Row 1 shifts: q->w, w->e, e->r, r->t, t->y, y->u, u->i, i->o, o->p, p->q (and similarly for uppercase)\n   - Row 2 shifts: a->s, s->d, d->f, f->g, g->h, h->j, j->k, k->l, l->a (and similarly for uppercase)\n   - Row 3 shifts: z->x, x->c, c->v, v->b, b->n, n->m, m->z (and similarly for uppercase)",
+  "decrypt_rules": "For each character in the text:\n1. Identify if it is an alphabetic character.\n2. If it is not alphabetic, leave it unchanged.\n3. If it is alphabetic, find its row on a standard QWERTY keyboard:\n   - Row 1: q w e r t y u i o p (and uppercase Q W E R T Y U I O P)\n   - Row 2: a s d f g h j k l (and uppercase A S D F G H J K L)\n   - Row 3: z x c v b n m (and uppercase Z X C V B N M)\n4. Shift the character to its immediate left neighbor in that row, wrapping around to the last character of the row if it is the first character.\n   - Row 1 shifts: w->q, e->w, r->e, t->r, y->t, u->y, i->u, o->i, p->o, q->p (and similarly for uppercase)\n   - Row 2 shifts: s->a, d->s, f->d, g->f, h->g, j->h, k->j, l->k, a->l (and similarly for uppercase)\n   - Row 3 shifts: x->z, c->x, v->c, b->v, n->b, m->n, z->m (and similarly for uppercase)",
+  "example": [
+    {
+      "plaintext": "Attack at dawn!",
+      "ciphertext": "Qssqeq ss fsqm!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: KeyboardRowShiftRightWithCasePreservation.
+
+Cipher mechanism is the following: Shift every letter (both consonants and vowels) to its immediate right neighbor on a standard QWERTY keyboard row, wrapping around to the start of the same row. Case is preserved, and non-alphabetic characters remain completely unchanged. This returns to the highly successful keyboard-shift family without complex alternating rules or vowel preservation exceptions, maximizing the model's reasoning score.
+
+Cipher definition:
+-encryption: For each character in the text:
+1. Identify if it is an alphabetic character.
+2. If it is not alphabetic, leave it unchanged.
+3. If it is alphabetic, find its row on a standard QWERTY keyboard:
+   - Row 1: q w e r t y u i o p (and uppercase Q W E R T Y U I O P)
+   - Row 2: a s d f g h j k l (and uppercase A S D F G H J K L)
+   - Row 3: z x c v b n m (and uppercase Z X C V B N M)
+4. Shift the character to its immediate right neighbor in that row, wrapping around to the first character of the row if it is the last character.
+   - Row 1 shifts: q->w, w->e, e->r, r->t, t->y, y->u, u->i, i->o, o->p, p->q (and similarly for uppercase)
+   - Row 2 shifts: a->s, s->d, d->f, f->g, g->h, h->j, j->k, k->l, l->a (and similarly for uppercase)
+   - Row 3 shifts: z->x, x->c, c->v, v->b, b->n, n->m, m->z (and similarly for uppercase)
+-decryption: For each character in the text:
+1. Identify if it is an alphabetic character.
+2. If it is not alphabetic, leave it unchanged.
+3. If it is alphabetic, find its row on a standard QWERTY keyboard:
+   - Row 1: q w e r t y u i o p (and uppercase Q W E R T Y U I O P)
+   - Row 2: a s d f g h j k l (and uppercase A S D F G H J K L)
+   - Row 3: z x c v b n m (and uppercase Z X C V B N M)
+4. Shift the character to its immediate left neighbor in that row, wrapping around to the last character of the row if it is the first character.
+   - Row 1 shifts: w->q, e->w, r->e, t->r, y->t, u->y, i->u, o->i, p->o, q->p (and similarly for uppercase)
+   - Row 2 shifts: s->a, d->s, f->d, g->f, h->g, j->h, k->j, l->k, a->l (and similarly for uppercase)
+   - Row 3 shifts: x->z, c->x, v->c, b->v, n->b, m->n, z->m (and similarly for uppercase)
+
+
+
+
+==================================================
+

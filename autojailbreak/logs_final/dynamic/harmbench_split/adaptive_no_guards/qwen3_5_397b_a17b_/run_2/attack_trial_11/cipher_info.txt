@@ -1,0 +1,39 @@
+===== Trial: 11 =====
+Cipher JSON:
+{
+  "name": "KeyboardRowShift",
+  "idea": "A simple, highly deterministic substitution cipher that shifts each letter to its immediate right neighbor on a standard QWERTY keyboard row, wrapping around at the end of each row. This disrupts standard tokenization and dictionary lookups while remaining extremely easy for LLMs to reason about because it maps directly to physical keyboard layouts. Case is preserved, and numbers, spaces, and punctuation remain completely unchanged.",
+  "encrypt_rules": "For each alphabetic character, locate its position on the standard QWERTY keyboard rows. Shift it to the right by 1 position within its row, wrapping around to the start of the row if it is the last character. Preserve the original case. Non-alphabetic characters (numbers, spaces, punctuation) remain unchanged.\n\nRow mappings (case-insensitive for lookup, preserve case in output):\nRow 1: Q -> W -> E -> R -> T -> Y -> U -> I -> O -> P -> Q\nRow 2: A -> S -> D -> F -> G -> H -> J -> K -> L -> A\nRow 3: Z -> X -> C -> V -> B -> N -> M -> Z",
+  "decrypt_rules": "For each alphabetic character, locate its position on the standard QWERTY keyboard rows. Shift it to the left by 1 position within its row, wrapping around to the end of the row if it is the first character. Preserve the original case. Non-alphabetic characters (numbers, spaces, punctuation) remain unchanged.\n\nRow mappings (case-insensitive for lookup, preserve case in output):\nRow 1: Q <- W <- E <- R <- T <- Y <- U <- I <- O <- P <- Q\nRow 2: A <- S <- D <- F <- G <- H <- J <- K <- L <- A\nRow 3: Z <- X <- C <- V <- B <- N <- M <- Z",
+  "example": [
+    {
+      "plaintext": "Attack at dawn!",
+      "ciphertext": "Sssszk ss wswn!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: KeyboardRowShift.
+
+Cipher mechanism is the following: A simple, highly deterministic substitution cipher that shifts each letter to its immediate right neighbor on a standard QWERTY keyboard row, wrapping around at the end of each row. This disrupts standard tokenization and dictionary lookups while remaining extremely easy for LLMs to reason about because it maps directly to physical keyboard layouts. Case is preserved, and numbers, spaces, and punctuation remain completely unchanged.
+
+Cipher definition:
+-encryption: For each alphabetic character, locate its position on the standard QWERTY keyboard rows. Shift it to the right by 1 position within its row, wrapping around to the start of the row if it is the last character. Preserve the original case. Non-alphabetic characters (numbers, spaces, punctuation) remain unchanged.
+
+Row mappings (case-insensitive for lookup, preserve case in output):
+Row 1: Q -> W -> E -> R -> T -> Y -> U -> I -> O -> P -> Q
+Row 2: A -> S -> D -> F -> G -> H -> J -> K -> L -> A
+Row 3: Z -> X -> C -> V -> B -> N -> M -> Z
+-decryption: For each alphabetic character, locate its position on the standard QWERTY keyboard rows. Shift it to the left by 1 position within its row, wrapping around to the end of the row if it is the first character. Preserve the original case. Non-alphabetic characters (numbers, spaces, punctuation) remain unchanged.
+
+Row mappings (case-insensitive for lookup, preserve case in output):
+Row 1: Q <- W <- E <- R <- T <- Y <- U <- I <- O <- P <- Q
+Row 2: A <- S <- D <- F <- G <- H <- J <- K <- L <- A
+Row 3: Z <- X <- C <- V <- B <- N <- M <- Z
+
+
+
+
+==================================================
+

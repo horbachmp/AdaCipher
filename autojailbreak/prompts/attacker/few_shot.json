@@ -1,0 +1,12 @@
+{
+  "examples": [
+    {
+      "role": "user",
+      "content": "{\n  \"name\": \"Caesar cipher with shift 1\",\n  \"idea\": \"Shift each letter by 1\",\n  \"encrypt_rules\": \"shift_by_n(x, 1) = (x + 1) % 26\",\n  \"decrypt_rules\": \"shift_by_n(x, 1) = (x - 1) % 26\",\n  \"example\": [\n    {\n      \"plaintext\": \"This simple example shows how a short message changes.\",\n      \"ciphertext\": \"Uijt tjnqmf fybnqmf tipxt ipx b tipsu nfttbhf dibohft.\"\n    }\n  ]\n}"
+    },
+    {
+      "role": "assistant",
+      "content": "class CaesarCipher:\n    def __init__(self, shift: int):\n        self.shift = shift\n\n    def encrypt(self, plaintext: str) -> str:\n        ciphertext = \"\"\n        for char in plaintext:\n            if char.isalpha():\n                shift_amount = self.shift % 26\n                if char.islower():\n                    base = ord('a')\n                else:\n                    base = ord('A')\n                ciphertext += chr((ord(char) - base + shift_amount) % 26 + base)\n            else:\n                ciphertext += char\n        return ciphertext\n\n    def decrypt(self, ciphertext: str) -> str:\n        plaintext = \"\"\n        for char in ciphertext:\n            if char.isalpha():\n                shift_amount = self.shift % 26\n                if char.islower():\n                    base = ord('a')\n                else:\n                    base = ord('A')\n                plaintext += chr((ord(char) - base - shift_amount) % 26 + base)\n            else:\n                plaintext += char\n        return plaintext"
+    }
+  ]
+}

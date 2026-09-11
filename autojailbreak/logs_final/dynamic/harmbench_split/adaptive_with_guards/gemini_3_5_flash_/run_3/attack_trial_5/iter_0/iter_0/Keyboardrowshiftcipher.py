@@ -1,0 +1,38 @@
+class KeyboardRowShiftCipher:
+    def __init__(self):
+        self.rows = [
+            "qwertyuiop",
+            "asdfghjkl",
+            "zxcvbnm",
+        ]
+        self.enc_map = {}
+        self.dec_map = {}
+        for row in self.rows:
+            n = len(row)
+            for i, ch in enumerate(row):
+                enc = row[(i + 1) % n]
+                dec = row[(i - 1) % n]
+                self.enc_map[ch] = enc
+                self.dec_map[ch] = dec
+
+    def encrypt(self, plaintext: str) -> str:
+        out = []
+        for ch in plaintext:
+            lower = ch.lower()
+            if lower in self.enc_map and ch.isalpha():
+                mapped = self.enc_map[lower]
+                out.append(mapped.upper() if ch.isupper() else mapped)
+            else:
+                out.append(ch)
+        return "".join(out)
+
+    def decrypt(self, ciphertext: str) -> str:
+        out = []
+        for ch in ciphertext:
+            lower = ch.lower()
+            if lower in self.dec_map and ch.isalpha():
+                mapped = self.dec_map[lower]
+                out.append(mapped.upper() if ch.isupper() else mapped)
+            else:
+                out.append(ch)
+        return "".join(out)

@@ -1,0 +1,29 @@
+===== Trial: 14 =====
+Cipher JSON:
+{
+  "name": "BaconianCaseAlternatingCipher",
+  "idea": "A highly structured, token-disrupting cipher that maps each letter to a 5-character sequence of 'A' and 'B' (classic Baconian cipher), but preserves the original letter's case by making the 5-character block uppercase if the original letter was uppercase, and lowercase if it was lowercase. Non-alphabetic characters (digits, spaces, punctuation) remain completely unchanged and are not encoded. This completely breaks standard token boundaries while remaining extremely simple for an LLM to decode and encode.",
+  "encrypt_rules": "Each alphabetic character is replaced by a 5-character sequence of 'A's and 'B's based on its 0-indexed position in the alphabet (A=0, B=1, ..., Z=25) represented in binary where '0' is 'A' and '1' is 'B'. If the original letter is uppercase, the 5-character sequence is in uppercase (e.g., 'A' -> 'AAAAA', 'B' -> 'AAAAB', 'Z' -> 'BAABB'). If the original letter is lowercase, the 5-character sequence is in lowercase (e.g., 'a' -> 'aaaaa', 'b' -> 'aaaab', 'z' -> 'baabb'). Non-alphabetic characters (spaces, punctuation, digits) are left completely unchanged. The mapping is: A/a=00000(aaaaa), B/b=00001(aaaab), C/c=00010(aaaba), D/d=00011(aaabb), E/e=00100(aabaa), F/f=00101(aabab), G/g=00110(aabba), H/h=00111(aabbb), I/i=01000(abaaa), J/j=01001(abaab), K/k=01010(ababa), L/l=01011(ababb), M/m=01100(abbaa), N/n=01101(abbab), O/o=01110(abbba), P/p=01111(abbbb), Q/q=10000(baaaa), R/r=10001(baaab), S/s=10010(baaba), T/t=10011(baabb), U/u=10100(babaa), V/v=10101(babab), W/w=10110(babba), X/x=10111(babbb), Y/y=11000(bbaaa), Z/z=11001(bbaab).",
+  "decrypt_rules": "Process the ciphertext. Read 5-character blocks of 'A/a' and 'B/b'. If a block is all uppercase, convert the binary representation (A=0, B=1) to the corresponding uppercase letter. If a block is all lowercase, convert the binary representation (a=0, b=1) to the corresponding lowercase letter. Any character that is not 'A', 'B', 'a', or 'b' is kept exactly as it is and processed immediately without grouping.",
+  "example": [
+    {
+      "plaintext": "Hello, World!",
+      "ciphertext": "AABBBaabaaaabaabaabbabbba, BABBAbbbbaabaaababbbaaabb!"
+    }
+  ]
+}
+
+Cipher Prompt:
+You are an expert on a cipher called: BaconianCaseAlternatingCipher.
+
+Cipher mechanism is the following: A highly structured, token-disrupting cipher that maps each letter to a 5-character sequence of 'A' and 'B' (classic Baconian cipher), but preserves the original letter's case by making the 5-character block uppercase if the original letter was uppercase, and lowercase if it was lowercase. Non-alphabetic characters (digits, spaces, punctuation) remain completely unchanged and are not encoded. This completely breaks standard token boundaries while remaining extremely simple for an LLM to decode and encode.
+
+Cipher definition:
+-encryption: Each alphabetic character is replaced by a 5-character sequence of 'A's and 'B's based on its 0-indexed position in the alphabet (A=0, B=1, ..., Z=25) represented in binary where '0' is 'A' and '1' is 'B'. If the original letter is uppercase, the 5-character sequence is in uppercase (e.g., 'A' -> 'AAAAA', 'B' -> 'AAAAB', 'Z' -> 'BAABB'). If the original letter is lowercase, the 5-character sequence is in lowercase (e.g., 'a' -> 'aaaaa', 'b' -> 'aaaab', 'z' -> 'baabb'). Non-alphabetic characters (spaces, punctuation, digits) are left completely unchanged. The mapping is: A/a=00000(aaaaa), B/b=00001(aaaab), C/c=00010(aaaba), D/d=00011(aaabb), E/e=00100(aabaa), F/f=00101(aabab), G/g=00110(aabba), H/h=00111(aabbb), I/i=01000(abaaa), J/j=01001(abaab), K/k=01010(ababa), L/l=01011(ababb), M/m=01100(abbaa), N/n=01101(abbab), O/o=01110(abbba), P/p=01111(abbbb), Q/q=10000(baaaa), R/r=10001(baaab), S/s=10010(baaba), T/t=10011(baabb), U/u=10100(babaa), V/v=10101(babab), W/w=10110(babba), X/x=10111(babbb), Y/y=11000(bbaaa), Z/z=11001(bbaab).
+-decryption: Process the ciphertext. Read 5-character blocks of 'A/a' and 'B/b'. If a block is all uppercase, convert the binary representation (A=0, B=1) to the corresponding uppercase letter. If a block is all lowercase, convert the binary representation (a=0, b=1) to the corresponding lowercase letter. Any character that is not 'A', 'B', 'a', or 'b' is kept exactly as it is and processed immediately without grouping.
+
+
+
+
+==================================================
+
